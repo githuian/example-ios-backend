@@ -17,23 +17,7 @@ end
 
 get '/' do
   status 200
-  return log_info("Great, your backend is set up. Now you can configure the Stripe example apps to point here.")
-end
-
-post '/ephemeral_keys' do
-  authenticate!
-  begin
-    key = Stripe::EphemeralKey.create(
-      {customer: @customer.id},
-      {stripe_version: params["api_version"]}
-    )
-  rescue Stripe::StripeError => e
-    status 402
-    return log_info("Error creating ephemeral key: #{e.message}")
-  end
-
-  status 200
-  key.to_json
+  return log_info("fp3 backend.")
 end
 
 post '/charge' do
