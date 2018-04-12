@@ -22,7 +22,6 @@ get '/' do
 end
 
 post '/charge' do
-  authenticate!
   # Get the credit card details submitted
   payload = params
   if request.content_type.include? 'application/json' and params.empty?
