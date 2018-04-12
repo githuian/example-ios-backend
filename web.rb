@@ -24,10 +24,7 @@ end
 post '/charge' do
   # Get the credit card details submitted
   payload = params
-  if request.content_type.include? 'application/json' and params.empty?
-    payload = indifferent_params(JSON.parse(request.body.read))
-  end
-
+ 
   source = payload[:source]
   # Create the charge on Stripe's servers - this will charge the user's card
   begin
