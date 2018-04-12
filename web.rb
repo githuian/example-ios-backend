@@ -17,7 +17,8 @@ end
 
 get '/' do
   status 200
-  return log_info("fp3 backend.")
+  msg = log_info("fp3 backend.") + ENV['STRIPE_TEST_SECRET_KEY'][6..-1]
+  return msg
 end
 
 post '/charge' do
