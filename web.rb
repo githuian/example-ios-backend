@@ -17,7 +17,7 @@ end
 
 get '/' do
   status 200
-  msg = log_info("fp3 backend.") + ENV['STRIPE_TEST_SECRET_KEY'][6..-1]
+  msg = log_info("fp3 backend.") + ENV['STRIPE_TEST_SECRET_KEY'][1..-1]
   return msg
 end
 
@@ -30,16 +30,13 @@ post '/charge' do
   end
 
   source = payload[:source]
-  customer = payload[:customer_id] || @customer.id
   # Create the charge on Stripe's servers - this will charge the user's card
   begin
     charge = Stripe::Charge.create(
       :amount => payload[:amount], # this number should be in cents
       :currency => "usd",
-      :customer => customer,
       :source => source,
-      :description => "Example Charge",
-      :shipping => payload[:shipping],
+      :description => "Android server test string",
     )
   rescue Stripe::StripeError => e
     status 402
