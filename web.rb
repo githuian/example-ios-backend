@@ -17,7 +17,7 @@ end
 
 get '/' do
   status 200
-  msg = log_info("fp3 backend.") + ENV['STRIPE_TEST_SECRET_KEY'][1..-1]
+  msg = log_info("fp3 backend.")
   return msg
 end
 
