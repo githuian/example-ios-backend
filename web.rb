@@ -32,7 +32,7 @@ post '/charge' do
       :amount => payload[:amount], # this number should be in cents
       :currency => "usd",
       :source => source,
-      :description => "Android server test string",
+      :description => "Android server test des:/charge",
     )
   rescue Stripe::StripeError => e
     status 402
@@ -41,26 +41,6 @@ post '/charge' do
 
   status 200
   return log_info("Charge successfully created")
-end
-
-def authenticate!
-  # This code simulates "loading the Stripe customer for your current session".
-  # Your own logic will likely look very different.
-  return @customer if @customer
-  if session.has_key?(:customer_id)
-    customer_id = session[:customer_id]
-    begin
-      @customer = Stripe::Customer.retrieve(customer_id)
-    rescue Stripe::InvalidRequestError
-    end
-  else
-    begin
-      @customer = Stripe::Customer.create(:description => "mobile SDK example customer")
-    rescue Stripe::InvalidRequestError
-    end
-    session[:customer_id] = @customer.id
-  end
-  @customer
 end
 
 # This endpoint is used by the Obj-C and Android example apps to create a charge.
@@ -105,7 +85,7 @@ post '/stripe-webhook' do
         :currency => source.currency,
         :source => source.id,
         :customer => source.metadata["customer"],
-        :description => "Example Charge"
+        :description => "Android server test des:/create_charge"
       )
     rescue Stripe::StripeError => e
       return log_info("Error creating charge: #{e.message}")
