@@ -26,7 +26,6 @@ post '/charge' do
   payload = params
  
   source = payload[:source]
-  return log_info(source)
   # Create the charge on Stripe's servers - this will charge the user's card
   begin
     charge = Stripe::Charge.create(
